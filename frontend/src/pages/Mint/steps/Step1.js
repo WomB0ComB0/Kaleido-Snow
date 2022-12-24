@@ -40,7 +40,7 @@ function Step1(props) {
     }, []);
 
     return (
-        <div style={{textAlign: 'center'}}>
+        <div className="items-center-container" style={{display:"flex", flexDirection:"column", textAlign: "center", alignItems: "center", height: "100vh", padding: "10px"}}>
             {!cancelling &&
                 <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                     <h1>Congratulations!</h1>
