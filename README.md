@@ -1,3 +1,5 @@
+# Kaleido-Snow
+
 ## Inspiration
 
 ## What it does
@@ -11,5 +13,3 @@
 ## What we learned
 
 ## What's next for Untitled
-
-# Kaleido-Snow
