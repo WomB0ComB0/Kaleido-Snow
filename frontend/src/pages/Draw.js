@@ -1,9 +1,17 @@
 import React from "react";
-import { ButtonProceed } from "../components/Buttons";
 import Snowfall from "react-snowfall";
 import { DrawingCanvas } from "../components/DrawingCanvas";
+import { useNavigate } from "react-router-dom";
 
 function Draw() {
+  const navigate = useNavigate();
+
+  async function proceed(img) {
+    // TODO: Backend call here?
+    localStorage.setItem("snowflake", img);
+    navigate("/mint");
+  }
+
   return (
     <>
       <Snowfall
@@ -13,21 +21,7 @@ function Draw() {
           height: "100vh",
         }}
       />
-      {/* Centered drawing canvas rendered above everything else */}
-      <div
-        style={{
-          position: "fixed",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          zIndex: 1,
-        }}
-      >
-        <DrawingCanvas/>
-        <ButtonProceed style={{ width: "100%", marginTop: "5px" }}>
-          Proceed
-        </ButtonProceed>
-      </div>
+      <DrawingCanvas onProceed={proceed}/>
       <img
         src={require("../images/snow-ground.png")}
         alt="Snow ground"
