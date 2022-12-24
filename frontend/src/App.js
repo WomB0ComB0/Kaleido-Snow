@@ -4,11 +4,12 @@ import "./App.css";
 import "./animations.css";
 import { Route, Routes } from 'react-router-dom'
 import { Draw, Mint } from './pages'
+import {Toaster} from 'react-hot-toast';
+import { Navbar } from './components/Navbar';
 
 
 function App() {
   const deso = new Deso();
-  const [white, setWhite] = useState(0);
 
   async function loginWithDeso(){
     const user = await deso.identity.login();
@@ -23,10 +24,12 @@ function App() {
 
   return (
     <div className={isDay() ? "light-container" : "dark-container"}>
+      <Navbar />
       <Routes>
         <Route path="/" element={<Draw />} />
         <Route path="/mint" element={<Mint />} />
       </Routes>
+      <Toaster />
     </div>
   )
 

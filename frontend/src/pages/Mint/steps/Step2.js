@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from "react";
 import { ButtonProceed, ButtonCancel } from "../../../components/Buttons";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import {toast} from "react-hot-toast";
+
 
 function Step1(props) {
     const [cancelling, setCancelling] = useState()
