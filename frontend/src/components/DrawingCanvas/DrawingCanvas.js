@@ -9,10 +9,10 @@ function DrawingCanvas(props) {
     const setup = (p5, canvasParentRef) => {
 		p5.createCanvas(500, 500).parent(canvasParentRef);
         p5.angleMode(p5.DEGREES)
-        p5.background(127);
         // Color picker
         colorPicker = p5.createColorPicker('#000000').parent(canvasParentRef);
         colorPicker.position(430, 460);
+        p5.background(127, 127, 127, 127);
 	};
 
 	const draw = (p5) => {
