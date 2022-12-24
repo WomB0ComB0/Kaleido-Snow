@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from "react";
 import { ButtonProceed, ButtonCancel } from "../../../components/Buttons";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import {toast} from "react-hot-toast";
 
 function Step1(props) {
     const [cancelling, setCancelling] = useState()
@@ -8,7 +10,19 @@ function Step1(props) {
     const navigate = useNavigate();
 
     async function nextStep() {
-        props.setStep(2);
+        props.setLoading(true);
+        try {
+            const resp = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/upload`, {
+                image
+            });
+            console.log(resp);
+            props.setData({...props.data, uploadUrl: resp.data.upload_url});
+            props.setStep(2);
+        } catch (e) {
+            console.log(e)
+            toast.error(e.response ? e.response.data.message : "Something went wrong");
+        }
+        props.setLoading(false);
     }
 
     async function cancel(){
