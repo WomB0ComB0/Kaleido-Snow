@@ -5,6 +5,7 @@ import "./animations.css";
 import { Route, Routes } from 'react-router-dom'
 import { Draw, Mint } from './pages'
 import {Toaster} from 'react-hot-toast';
+import { Navbar } from './components/Navbar';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
 
   return (
     <div className={isDay() ? "light-container" : "dark-container"}>
+      <Navbar />
       <Routes>
         <Route path="/" element={<Draw />} />
         <Route path="/mint" element={<Mint />} />
