@@ -1,6 +1,7 @@
-import React from "react";
+import React, {useRef} from "react";
 import { ButtonPrimary } from "./components/Buttons";
 import Snowfall from "react-snowfall";
+import { DrawingCanvas } from "./components/DrawingCanvas";
 import Deso from "deso-protocol";
 import "./App.css"
 
@@ -13,6 +14,7 @@ function App() {
   }
 
   return (
+    
     <div className="dark-container">
       <Snowfall style={{
           position: 'fixed',
@@ -21,8 +23,11 @@ function App() {
         }}
       />
       {/*<ButtonPrimary onClick={loginWithDeso}>Login with Deso</ButtonPrimary>*/}
-      {/* Image on the bottom (snow ground) */}
-      <img src={require("./images/snow-ground.png")} alt="Snow ground" className="snow-ground" style={{position: 'fixed', bottom: 0, left: 0, width: '100vw', height: "40vh"}}/>
+      {/* Centered drawing canvas rendered above everything else */}
+      <div style={{position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 1}}>
+        <DrawingCanvas />
+      </div>
+      <img src={require("./images/snow-ground.png")} alt="Snow ground" style={{position: 'fixed', bottom: 0, left: 0, width: '100vw', height: "40vh"}}/>
     </div>
   );
 }
