@@ -13,8 +13,7 @@ firebase = pyrebase.initialize_app(config)
 db = firebase.database()
 
 def hash_exists(hash):
-    hashes = db.child("hashes").get().val()
-    return hash in hashes
+    return db.child("hashes").child(hash).get().val() is not None
 
 def add_hash(hash):
     db.child("hashes").push(hash)

@@ -18,7 +18,7 @@ function Step1(props) {
         props.setLoading(true);
         try {
             // Check if the image already exists w/ axios
-            const imageExistsResp = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/check-hash`, {"image_b64": image});
+            const imageExistsResp = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/check-hash`, {"img_b64": image});
             if (!imageExistsResp.data.success) {
                 toast.error("This image already exists. Please restart the process.");
                 props.setLoading(false);
