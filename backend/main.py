@@ -1,8 +1,10 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from controllers.firebase_controller import hash_exists, add_hash
 import hashlib
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route("/check-hash", methods=["POST"])
 def check_hash():

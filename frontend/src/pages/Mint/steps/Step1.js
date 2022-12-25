@@ -3,6 +3,7 @@ import { ButtonProceed, ButtonCancel } from "../../../components/Buttons";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../../context/auth-context";
 import {toast} from "react-hot-toast";
+import axios from "axios";
 
 function Step1(props) {
     const [cancelling, setCancelling] = useState()
@@ -16,6 +17,14 @@ function Step1(props) {
         }
         props.setLoading(true);
         try {
+            // Check if the image already exists w/ axios
+            const imageExistsResp = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/check-hash`, {"image_b64": image});
+            if (!imageExistsResp.data.success) {
+                toast.error("This image already exists. Please restart the process.");
+                props.setLoading(false);
+                return;
+            }
+
             // Convert image from b64 to file
             const byteString = atob(image.split(',')[1]);
             const mimeString = image.split(',')[0].split(':')[1].split(';')[0]
