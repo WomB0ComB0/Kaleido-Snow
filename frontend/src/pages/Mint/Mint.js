@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import * as steps from "./steps";
+import Loader from "../../components/Loader/Loader";
 
 function Mint(){
     const [data, setData] = useState(localStorage.getItem("mintData") ? JSON.parse(localStorage.getItem("mintData")) : {});
@@ -45,10 +46,12 @@ function Mint(){
 
     return (
         <>
-            <div className="items-center-container">
-                {!loading && render()}
-                {loading && <div className="dark-container" style={{"width": "100vw", "height": "100vh"}}><div className="items-center-container"><h1>Loading...</h1></div></div>}
-            </div> 
+            {!loading && 
+                <div className="items-center-container">
+                    {render()}
+                </div>
+            }
+            {loading && <Loader />}
         </>
         
     );
