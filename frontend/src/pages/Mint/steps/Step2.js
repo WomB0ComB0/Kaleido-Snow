@@ -15,7 +15,6 @@ function Step2(props) {
             await auth.login();
         }
         props.setLoading(true);
-        console.log(parseFloat(donationAmount))
         if (parseFloat(donationAmount) > 0) {
             try {
                 const desoNanoAmount = parseFloat(donationAmount) * 1000000000;
@@ -26,11 +25,14 @@ function Step2(props) {
                     "MinFeeRateNanosPerKB": 1000
                 }
                 await auth.deso.wallet.sendDesoRequest(request);
+                props.setData({...props.data, donationAmount: donationAmount});
                 toast.success("Thank you!");
                 props.setStep(3);
             } catch (e) {
                 toast.error(e.response? e.response.data.error : e.message);
             }
+        } else {
+            props.setStep(3);
         }
         props.setLoading(false);
     }

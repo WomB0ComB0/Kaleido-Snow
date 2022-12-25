@@ -25,6 +25,19 @@ function Mint(){
                 return <steps.Step2 setStep={updateStep} setLoading={setLoading} data={data} setData={updateMintData}/>;
             case 3:
                 return <steps.Step3 setStep={updateStep} setLoading={setLoading} data={data} setData={updateMintData}/>;
+            case 4:
+                // Redirect to main page after 4 seconds
+                setTimeout(() => {
+                    window.location.href = "/";
+                }, 3500);
+
+                return (
+                    <div className="dark-container" style={{"width": "100vw", "height": "100vh"}}>
+                        <div className="items-center-container">
+                            <h1 className="fade-in-then-out">Thank you. You will be redirected shortly</h1>
+                        </div>
+                    </div>
+                )
             default:
                 return <div>Something went wrong</div>;
         }

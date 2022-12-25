@@ -1,22 +1,38 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import { ButtonProceed, ButtonCancel } from "../../../components/Buttons";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import AuthContext from "../../../context/auth-context";
 import {toast} from "react-hot-toast";
 
 function Step1(props) {
     const [cancelling, setCancelling] = useState()
     const [image, setImage] = useState("");
     const navigate = useNavigate();
+    const auth = useContext(AuthContext);
 
     async function nextStep() {
+        if (!localStorage.getItem("desoKey")) {
+            await auth.login();
+        }
         props.setLoading(true);
         try {
-            const resp = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/upload`, {
-                image
-            });
-            console.log(resp);
-            props.setData({...props.data, uploadUrl: resp.data.upload_url});
+            // Convert image from b64 to file
+            const byteString = atob(image.split(',')[1]);
+            const mimeString = image.split(',')[0].split(':')[1].split(';')[0]
+            const ab = new ArrayBuffer(byteString.length);
+            const ia = new Uint8Array(ab);
+            for (let i = 0; i < byteString.length; i++) {
+                ia[i] = byteString.charCodeAt(i);
+            }
+            const blob = new Blob([ab], {type: mimeString});
+            const file = new File([blob], "snowflake.png", {type: mimeString});
+            const request = {
+                "UserPublicKeyBase58Check": localStorage.getItem("desoKey"),
+                "file": file,
+            }
+            const resp = await auth.deso.media.uploadImage(request);
+            console.log(resp)
+            props.setData({...props.data, uploadUrl: resp.ImageURL});
             props.setStep(2);
         } catch (e) {
             console.log(e)

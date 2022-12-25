@@ -38,7 +38,6 @@ function App() {
       logout: desoLogout,
       deso: deso
     }}>
-        <Navbar />
         <Routes>
           <Route path="/" element={<div className={isDay() ? "light-container" : "dark-container"}><Draw /></div>} />
           <Route path="/mint" element={<Mint />} />
