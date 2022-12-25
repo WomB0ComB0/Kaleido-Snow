@@ -16,5 +16,5 @@ def hash_exists(hash):
     return db.child("hashes").child(hash).get().val() is not None
 
 def add_hash(hash):
-    db.child("hashes").push(hash)
+    db.child("hashes").child(hash).set(True)
 
