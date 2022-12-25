@@ -9,6 +9,8 @@ function Draw() {
   async function proceed(img) {
     // TODO: Backend call here?
     localStorage.setItem("snowflake", img);
+    localStorage.setItem("mintStep", 1);
+    localStorage.setItem("mintData", JSON.stringify({}));
     navigate("/mint");
   }
 
